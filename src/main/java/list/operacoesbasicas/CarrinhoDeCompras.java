@@ -46,6 +46,6 @@ public class CarrinhoDeCompras {
 
 		double total = carrinhoDeCompras.calcularValorTotal();
 		System.out.println("Valor total do carrinho: " + total);
-
-	}
+		
+}
 }
