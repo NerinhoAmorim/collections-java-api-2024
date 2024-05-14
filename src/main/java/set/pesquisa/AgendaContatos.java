@@ -9,16 +9,20 @@ public class AgendaContatos {
 	public AgendaContatos() {
 		this.contatoSet = new HashSet<>();
 	}
+
 	public void adicionarContato(String nome, int numero) {
 		contatoSet.add(new Contato(nome, numero));
 	}
-	public void exibirNomes() {
+
+	public void exibirContato() {
 		System.out.println(contatoSet);
 	}
-	public Set<Contato> pesquisarPorNome(String nome){
+
+	public Set<Contato> pesquisarPorNome(String nome) {
 		Set<Contato> contatoPorNome = new HashSet<>();
-		for(Contato c: contatoSet) {
-			if(c.getNome().startsWith(nome));
+		for (Contato c : contatoSet) {
+			if (c.getNome().startsWith(nome))
+				;
 			contatoPorNome.add(c);
 		}
 		return contatoPorNome;
@@ -26,16 +30,20 @@ public class AgendaContatos {
 
 	public Contato atualizarNumeroContato(String nome, int novoNumero) {
 		Contato contatoAtualizado = null;
-		for (Contato c : contatoSet) {
-			if (c.getNome().equalsIgnoreCase(nome)) {
-				c.setNumero(novoNumero);
-				contatoAtualizado = c;
-				break;
+		if (!contatoSet.isEmpty()) {
+			for (Contato c : contatoSet) {
+				if (c.getNome().equalsIgnoreCase(nome)) {
+					c.setNumero(novoNumero);
+					contatoAtualizado = c;
+					break;
+				}
 			}
+			return contatoAtualizado;
+		} else {
+			throw new RuntimeException("O conjunto está vazio!");
 		}
-		return contatoAtualizado;
 	}
-	
+
 	public static void main(String[] args) {
 		AgendaContatos agendaContatos = new AgendaContatos();
 		agendaContatos.adicionarContato("Nerinho", 739993767);
@@ -44,14 +52,16 @@ public class AgendaContatos {
 		agendaContatos.adicionarContato("Nerinho Amorim", 739813767);
 		agendaContatos.adicionarContato("Gil Nascimento", 73988);
 
-		agendaContatos.exibirNomes();
+		agendaContatos.exibirContato();
 
-		System.out.println(agendaContatos.pesquisarPorNome("Gil"));
+		System.out.println(agendaContatos.pesquisarPorNome("Nerinho"));
+		
+		Contato contatoAtualizado = agendaContatos.atualizarNumeroContato("Gil Nascimento", 44443333);
+		System.out.println("Contato atualizado: " + contatoAtualizado);
+		
+		System.out.println("Contatos na agenda após atualização:");
+	    agendaContatos.exibirContato();
 
-		System.out.println("Contato Atualizado:" + agendaContatos.atualizarNumeroContato("Gil Nascimento ", 98105));
-		agendaContatos.exibirNomes();
-		
-		
 	}
 
 }
